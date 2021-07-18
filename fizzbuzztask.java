@@ -58,3 +58,6 @@ class Main {
         consoleBasedFizzBuzz.print(1, 100);
     }
 }
+
+// 1. javac fizzbuzztask.java
+// 2. java Main
