@@ -16,8 +16,12 @@ class Laboratory {
 
     Microscope microscope;
 
+    // 1.1 쓸모 없는 비교를 피하자
+    // 굳이 true, false 비교할 필요 없음.
+    // is... return 이 boolean이므로..
+    
     Result analyze(Sample sample) {
-        if (microscope.isInorganic(sample) == true) {
+        if (microscope.isInorganic(sample)) {
             return Result.INORGANIC;
         } else {
             return analyzeOrganic(sample);
@@ -25,7 +29,7 @@ class Laboratory {
     }
 
     private Result analyzeOrganic(Sample sample) {
-        if (microscope.isHumanoid(sample) == false) {
+        if (microscope.isHumanoid(sample)) {
             return Result.ALIEN;
         } else {
             return Result.HUMANOID;

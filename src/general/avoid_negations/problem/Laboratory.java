@@ -16,6 +16,10 @@ class Laboratory {
 
     Microscope microscope;
 
+    // 1.2 부정 피하기
+    // ! 연산자의 사용을 줄이자
+    // 누구나 부정 없는 표현을 좋아한다 --> 코드 가독성이 높아진다.
+
     Result analyze(Sample sample) {
         if (microscope.isInorganic(sample)) {
             return Result.INORGANIC;
@@ -25,10 +29,10 @@ class Laboratory {
     }
 
     private Result analyzeOrganic(Sample sample) {
-        if (!microscope.isHumanoid(sample)) {
-            return Result.ALIEN;
-        } else {
+        if (microscope.isHumanoid(sample)) {
             return Result.HUMANOID;
+        } else {
+            return Result.ALIEN;
         }
     }
 }

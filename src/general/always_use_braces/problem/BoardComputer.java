@@ -17,14 +17,35 @@ class BoardComputer {
 
     CruiseControl cruiseControl;
 
+    // 1.8 코드 대칭 이루기
     void authorize(User user) {
         Objects.requireNonNull(user);
-        if (user.isUnknown())
+        if (user.isUnknown()) {
             cruiseControl.logUnauthorizedAccessAttempt();
-        if (user.isAstronaut())
+            return;
+        }
+
+        if (user.isAstronaut()) {
             cruiseControl.grantAccess(user);
-        if (user.isCommander())
+        }
+        else if (user.isCommander()) {
             cruiseControl.grantAccess(user);
             cruiseControl.grantAdminAccess(user);
+        }
     }
+
+    // 1.7 항상 괄호 사용하기
+//    void authorize(User user) {
+//        Objects.requireNonNull(user);
+//        if (user.isUnknown()) {
+//            cruiseControl.logUnauthorizedAccessAttempt();
+//        }
+//        if (user.isAstronaut()) {
+//            cruiseControl.grantAccess(user);
+//        }
+//        if (user.isCommander()) {
+//            cruiseControl.grantAccess(user);
+//            cruiseControl.grantAdminAccess(user);
+//        }
+//    }
 }

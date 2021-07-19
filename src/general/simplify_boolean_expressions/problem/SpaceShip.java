@@ -23,9 +23,23 @@ class SpaceShip {
     Navigator navigator;
     OxygenTank oxygenTank;
 
+    // 1.4 불 표현식을 간소화하자
+    // 코드행이 늘어나더라도, 가독성을 포기하지 말자
+
     boolean willCrewSurvive() {
-        return hull.holes == 0 &&
-                fuelTank.fuel >= navigator.requiredFuelToEarth() &&
-                oxygenTank.lastsFor(crew.size) > navigator.timeToEarth();
+        // 소모성 자원이 충분히 있는가?
+        boolean hasEnoughResources = hasEnoughFuel() && hasEnoughOxygen();
+        return hull.isIntact() && hasEnoughResources;
+//        return hull.holes == 0 &&
+//                fuelTank.fuel >= navigator.requiredFuelToEarth() &&
+//                oxygenTank.lastsFor(crew.size) > navigator.timeToEarth();
+    }
+
+    private boolean hasEnoughOxygen() {
+        return oxygenTank.lastsFor(crew.size) > navigator.timeToEarth();
+    }
+
+    private boolean hasEnoughFuel() {
+        return fuelTank.fuel >= navigator.requiredFuelToEarth();
     }
 }

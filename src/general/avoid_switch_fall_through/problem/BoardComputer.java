@@ -18,11 +18,16 @@ class BoardComputer {
 
     CruiseControl cruiseControl;
 
+
+    // 1.6 switch 문에서 실패하는 경우를 피하지
+
     void authorize(User user) {
+        // null일 경우, 아래 에러 발생
         Objects.requireNonNull(user);
         switch (user.getRank()) {
             case UNKNOWN:
                 cruiseControl.logUnauthorizedAccessAttempt();
+                break;
             case ASTRONAUT:
                 cruiseControl.grantAccess(user);
                 break;
