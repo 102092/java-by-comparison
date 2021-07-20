@@ -21,7 +21,11 @@ class FuelSystem {
             sum += tankFilling;
         }
         double averageFuel = sum / tanks.size();
-        // round to integer percent
+//        return Math.toIntExact(Math.round(averageFuel * 100));
+        return roundToIntegerPercent(averageFuel);
+    }
+
+    private int roundToIntegerPercent(double averageFuel) {
         return Math.toIntExact(Math.round(averageFuel * 100));
     }
 }

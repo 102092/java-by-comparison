@@ -20,9 +20,10 @@ class LaunchChecklist {
                                         "Communication",
                                         "Engine");
 
+    // 2.3 For each 문을 사용하자
     Status prepareForTakeoff(Commander commander) {
-        for (int i = 0; i < checks.size(); i++) {
-            boolean shouldAbortTakeoff = commander.isFailing(checks.get(i));
+        for (String check : checks) {
+            boolean shouldAbortTakeoff = commander.isFailing(check);
             if (shouldAbortTakeoff) {
                 return Status.ABORT_TAKE_OFF;
             }

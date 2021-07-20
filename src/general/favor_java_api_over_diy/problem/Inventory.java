@@ -9,7 +9,9 @@
 package general.favor_java_api_over_diy.problem;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import general.Supply;
 
@@ -17,19 +19,24 @@ class Inventory {
 
     private List<Supply> supplies = new ArrayList<>();
 
+    // 2.8 java api 사용하기
     int getQuantity(Supply supply) {
-        if (supply == null) {
-            throw new NullPointerException("supply must not be null");
-        }
+        Objects.requireNonNull(supply, "supply must not be null");
 
-        int quantity = 0;
-        for (Supply supplyInStock : supplies) {
-            if (supply.equals(supplyInStock)) {
-                quantity++;
-            }
-        }
+        return Collections.frequency(supplies, supply);
 
-        return quantity;
+//        if (supply == null) {
+//            throw new NullPointerException("supply must not be null");
+//        }
+//
+//        int quantity = 0;
+//        for (Supply supplyInStock : supplies) {
+//            if (supply.equals(supplyInStock)) {
+//                quantity++;
+//            }
+//        }
+//
+//        return quantity;
 
     }
 }

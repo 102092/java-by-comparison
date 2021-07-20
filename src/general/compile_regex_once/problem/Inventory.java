@@ -19,10 +19,12 @@ class Inventory {
 
     private List<Supply> supplies = new ArrayList<>();
 
+    // 2.5
     List<Supply> find(String regex) {
         List<Supply> result = new LinkedList<>();
+        Pattern pattern = Pattern.compile(regex);
         for (Supply supply : supplies) {
-            if (Pattern.matches(regex, supply.toString())) {
+            if (pattern.matcher(supply.toString()).matches()) {
                 result.add(supply);
             }
         }

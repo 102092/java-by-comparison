@@ -18,6 +18,8 @@ class Mission {
     Logbook logbook;
     LocalDate start;
 
+    // 2.7 format을 이용해서 코드 간소화
+
     void update(String author, String message) {
         final LocalDate today = LocalDate.now();
         String entry = String.format("%S: [%tm-%<te-%<tY](Day %d)> %s%n",

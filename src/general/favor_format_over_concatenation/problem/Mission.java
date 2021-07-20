@@ -18,6 +18,8 @@ class Mission {
     Logbook logbook;
     LocalDate start;
 
+    // 2.7
+    // 읽기 어렵다
     void update(String author, String message) {
         LocalDate today = LocalDate.now();
         String month = String.valueOf(today.getMonthValue());
