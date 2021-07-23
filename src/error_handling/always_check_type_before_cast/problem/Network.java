@@ -22,8 +22,10 @@ class Network {
     void listen() throws IOException, ClassNotFoundException {
         while (true) {
             Object signal = inputStream.readObject();
-            CrewMessage crewMessage = (CrewMessage) signal;
-            interCom.broadcast(crewMessage);
+            if (signal instanceof CrewMessage) {
+                CrewMessage crewMessage = (CrewMessage) signal;
+                interCom.broadcast(crewMessage);
+            }
         }
     }
 }

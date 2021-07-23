@@ -25,9 +25,15 @@ class TransmissionParser {
             String content = rawContent.trim();
             return new Transmission(id, content);
         } catch (NumberFormatException e) {
+            // 잡은 에러는 NumberFormatException 인데, 던지는 에러는 IllegalArgumentException..?
+//            throw new IllegalArgumentException(
+//                String.format("Expected number, but got '%s' in '%s'",
+//                        rawId, rawMessage));
+
+            // IllegalArgumentException에 e를 넘겨서 해당 에러에 발생된 에러가 포함되어 연결되도록 해야한다.
             throw new IllegalArgumentException(
                 String.format("Expected number, but got '%s' in '%s'",
-                        rawId, rawMessage));
+                    rawId, rawMessage), e);
         }
     }
 }

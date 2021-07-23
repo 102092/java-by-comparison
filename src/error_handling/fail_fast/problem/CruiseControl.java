@@ -16,12 +16,9 @@ class CruiseControl {
     private double targetSpeedKmh;
 
     void setTargetSpeedKmh(double speedKmh) {
-        if (speedKmh < 0) {
-            throw new IllegalArgumentException();
-        } else if (speedKmh <= SPEED_LIMIT) {
-            targetSpeedKmh = speedKmh;
-        } else {
+        if (speedKmh < 0 || targetSpeedKmh > SPEED_LIMIT) {
             throw new IllegalArgumentException();
         }
+        targetSpeedKmh = speedKmh;
     }
 }

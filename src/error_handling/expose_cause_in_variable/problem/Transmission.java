@@ -12,10 +12,9 @@ class TransmissionParser {
     static Transmission parse(String rawMessage) {
         if (rawMessage != null
                 && rawMessage.length() != Transmission.MESSAGE_LENGTH) {
-            throw new IllegalArgumentException(
-                String.format("Expected %d, but got %d characters in '%s'",
-                    Transmission.MESSAGE_LENGTH, rawMessage.length(),
-                    rawMessage));
+            throw new MalformedMessageException(
+                String.format("Expected %d, but got %d characters",
+                    Transmission.MESSAGE_LENGTH, rawMessage.length()), rawMessage);
         }
 
         String rawId = rawMessage.substring(0, Transmission.ID_LENGTH);
@@ -25,9 +24,9 @@ class TransmissionParser {
             String content = rawContent.trim();
             return new Transmission(id, content);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(
-                String.format("Expected number, but got '%s' in '%s'",
-                    rawId, rawMessage), e);
+            throw new MalformedMessageException(
+                String.format("Expected number, but got '%s'",
+                    rawId), rawMessage, e);
         }
     }
 }
@@ -42,5 +41,19 @@ class Transmission {
     Transmission(int id, String content) {
         this.id = id;
         this.content = content;
+    }
+}
+
+final class MalformedMessageException extends IllegalArgumentException {
+    final String raw;
+
+    MalformedMessageException(String message, String raw) {
+        super(String.format("%s in '%s'", message, raw));
+        this.raw = raw;
+    }
+
+    MalformedMessageException(String message, String raw, Throwable throwable) {
+        super(String.format("%s in '%s'", message, raw), throwable);
+        this.raw = raw;
     }
 }

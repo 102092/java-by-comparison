@@ -29,6 +29,7 @@ class Logbook {
         for (Path logFile : directoryStream) {
             result.add(logFile);
         }
+        // close전에 예외가 발생하면, close()가 실행되지 않는다
         directoryStream.close();
 
         return result;

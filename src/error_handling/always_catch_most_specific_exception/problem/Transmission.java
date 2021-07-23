@@ -18,7 +18,7 @@ class TransmissionParser {
         String rawId = rawMessage.substring(0, Transmission.ID_LENGTH);
         String rawContent = rawMessage.substring(Transmission.ID_LENGTH);
         try {
-            int id = Integer.parseInt(rawId);
+            int id = Integer.parseInt(rawId); // 이 부분에서 NumberFormatException 발생 가능
             String content = rawContent.trim();
             return new Transmission(id, content);
         } catch (Exception e) {
