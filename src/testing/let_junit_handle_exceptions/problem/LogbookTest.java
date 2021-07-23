@@ -25,6 +25,7 @@ class LogbookTest {
             List<String> entries = logbook.readAllEntries();
             Assertions.assertEquals(13, entries.size());
         } catch (IOException e) {
+            // 전체 예외에 대한 스택 추적이 어려운 상태
             Assertions.fail(e.getMessage());
         }
     }
@@ -36,6 +37,7 @@ class LogbookTest {
         try {
             logbook.readAllEntries();
             Assertions.fail("read should fail");
+            // 예외가 일어나기를 기대했지만, 실제로 일어나지 않는다.
         } catch (IOException ignored) {}
     }
 }

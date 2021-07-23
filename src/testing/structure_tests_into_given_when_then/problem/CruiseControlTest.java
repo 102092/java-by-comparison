@@ -17,8 +17,13 @@ class CruiseControlTest {
 
     @Test
     void setPlanetarySpeedIs7667() {
+        // given
         CruiseControl cruiseControl = new CruiseControl();
+
+        // when
         cruiseControl.setPreset(SpeedPreset.PLANETARY_SPEED);
+
+        // then
         Assertions.assertTrue(7667 == cruiseControl.getTargetSpeedKmh());
     }
 }

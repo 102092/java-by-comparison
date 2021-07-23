@@ -21,6 +21,6 @@ class CruiseControlTest {
 
         cruiseControl.setPreset(SpeedPreset.PLANETARY_SPEED);
 
-        Assertions.assertEquals(cruiseControl.getTargetSpeedKmh(), 7667);
+        Assertions.assertEquals( 7667, cruiseControl.getTargetSpeedKmh());
     }
 }

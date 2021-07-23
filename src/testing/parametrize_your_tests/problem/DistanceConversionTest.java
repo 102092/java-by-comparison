@@ -11,26 +11,23 @@ package testing.parametrize_your_tests.problem;
 import design.favor_immutable_over_mutable_state.DistanceUnit;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import testing.parametrize_your_tests.Distance;
 
 class DistanceConversionTest {
 
-    @Test
-    void testConversionRoundTrip() {
-        assertRoundTrip(1);
-        assertRoundTrip(1_000);
-        assertRoundTrip(9_999_999);
-    }
-
-    private void assertRoundTrip(int kilometers) {
+    @ParameterizedTest(name = "#{index}: {0}km == {0}km -> mi -> km")
+    @ValueSource(ints = {1, 1_000, 9_999_999})
+    void testConversionRoundTrip(int kilometers) {
         Distance expectedDistance = new Distance(
-                DistanceUnit.KILOMETERS,
-                kilometers
+            DistanceUnit.KILOMETERS,
+            kilometers
         );
 
         Distance actualDistance = expectedDistance
-                .convertTo(DistanceUnit.MILES)
-                .convertTo(DistanceUnit.KILOMETERS);
+            .convertTo(DistanceUnit.MILES)
+            .convertTo(DistanceUnit.KILOMETERS);
 
         Assertions.assertEquals(expectedDistance, actualDistance);
     }
