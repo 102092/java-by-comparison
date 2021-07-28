@@ -23,6 +23,7 @@ class Logbook {
     static final Path CREW_LOG = Paths.get("/var/log/crew.log");
 
     void log(String message, boolean classified) throws IOException {
+        // 7.1 classified 로 구분되어 실행되기 보다는 각각 다른 메서드로 실행되도록 만들자.
         if (classified) {
             writeMessage(message, CAPTAIN_LOG);
         } else {

@@ -25,6 +25,10 @@ class Logbook {
     List<String> readEntries(LocalDate date) throws IOException {
         final List<String> entries = Files.readAllLines(CREW_LOG,
                 StandardCharsets.UTF_8);
+
+        // date == null 일수 있다는 말은, 해당 매개변수가 선택사항이라는 뜻.
+        // 이러한 옵션 매개변수가 있으면, 해당 메서드는 2가지 일을 한다 ( null을 판단하고, 그리도 다른일..)
+        //
         if (date == null) {
             return entries;
         }
