@@ -32,6 +32,12 @@ class Inventory {
 
         Consumer<String> addToNames = name -> names.add(name);
 
+        // 8.4
+        // 문제는 람다 표현식 밖에 있는 리스트 names에 name을 추가하도록 만드는 것.
+        // 코드엔 문제 없다
+        // 그렇지만 여러 스레드 간 부수효과 가 발생할 수 아닐 수도 있음
+        // 왜냐면 ArrayList는 thread safe하지 않기 때문에
+
         supplies.stream()
                 .filter(Supply::isUncontaminated)
                 .map(Supply::getName)

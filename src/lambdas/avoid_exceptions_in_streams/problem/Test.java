@@ -5,7 +5,7 @@
  * courses, books, articles, and the like. Contact us if you are in doubt.
  * We make no guarantees that this code is fit for any purpose.
  * Visit http://www.pragmaticprogrammer.com/titles/javacomp for more book information.
-***/
+ ***/
 package lambdas.avoid_exceptions_in_streams.problem;
 
 import java.io.IOException;
@@ -15,6 +15,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 class Test {
 
@@ -33,17 +34,20 @@ class LogBook {
 
 class LogBooks {
 
+    // IO 에서 생성될 수 있는 자원을 닫아야하고, try-with resource 를 사용해서
+    //
     static List<LogBook> getAll() throws IOException {
-        return Files.walk(Paths.get("/var/log"))
-                    .filter(Files::isRegularFile)
-                    .filter(LogBook::isLogbook)
-                    .map(path -> {
-                        try {
-                            return new LogBook(path);
-                        } catch (IOException e) {
-                            throw new UncheckedIOException(e);
-                        }
-                    })
-                    .collect(Collectors.toList());
+        try (Stream<Path> stream = Files.walk(Paths.get("/var/log"))) {
+            return stream.filter(Files::isRegularFile)
+                .filter(LogBook::isLogbook)
+                .flatMap(path -> {
+                    try {
+                        return Stream.of(new LogBook(path));
+                    } catch (IOException e) {
+                        return Stream.empty();
+                    }
+                })
+                .collect(Collectors.toList());
+        }
     }
 }

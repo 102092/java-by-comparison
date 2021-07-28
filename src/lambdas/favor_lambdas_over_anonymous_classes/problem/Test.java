@@ -26,13 +26,7 @@ class Calculator {
     Map<Double, Double> values = new HashMap<>();
 
     Double square(Double x) {
-        Function<Double, Double> squareFunction =
-                new Function<Double, Double>() {
-                    @Override
-                    public Double apply(Double value) {
-                        return value * value;
-                    }
-                };
+        Function<Double, Double> squareFunction = value -> value * value;
         return values.computeIfAbsent(x, squareFunction);
     }
 }

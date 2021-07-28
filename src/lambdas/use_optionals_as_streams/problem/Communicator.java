@@ -5,7 +5,7 @@
  * courses, books, articles, and the like. Contact us if you are in doubt.
  * We make no guarantees that this code is fit for any purpose.
  * Visit http://www.pragmaticprogrammer.com/titles/javacomp for more book information.
-***/
+ ***/
 package lambdas.use_optionals_as_streams.problem;
 
 import java.util.Optional;
@@ -37,16 +37,20 @@ class BackupJob {
     Storage storage;
 
     void backupToEarth() {
-        Optional<Connection> connectionOptional =
-                communicator.getConnectionToEarth();
-        if (!connectionOptional.isPresent()) {
-            throw new IllegalStateException();
-        }
-
-        Connection connection = connectionOptional.get();
-        if (!connection.isFree()) {
-            throw new IllegalStateException();
-        }
+        // 8.9
+        // 코드가 훨씬 간결해졌다.
+        // 옵셔널이 나오면, 함수형으로 어떻게 풀어낼 수 있을지 생각해보면 좋을 것 같다.
+        Connection connection = communicator.getConnectionToEarth()
+            .filter(Connection::isFree)
+            .orElseThrow(IllegalStateException::new);
+//        if (!connectionOptional.isPresent()) {
+//            throw new IllegalStateException();
+//        }
+//
+//        Connection connection = connectionOptional.get();
+//        if (!connection.isFree()) {
+//            throw new IllegalStateException();
+//        }
 
         connection.send(storage.getBackup());
     }
